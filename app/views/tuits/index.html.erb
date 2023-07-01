@@ -3,25 +3,26 @@
     <!-- Sidebar -->
     <div class="sidebar px-2 pt-3">
       <!-- Contenido del sidebar -->
-      <!-- Cuadro de búsqueda de tweets anteriores -->
-      <div class="card mb-2">
-        <div class="card-body">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Buscar tweets anteriores">
-            <button class="btn btn-outline-primary" type="button">Buscar</button>
+      <%= form_with url: root_path, method: :get do |form| %>
+        <!-- Cuadro de búsqueda de tweets anteriores -->
+        <div class="card mb-2">
+          <div class="card-body">
+            <div class="input-group">
+              <%= form.text_field :buscar, class: "form-control", placeholder: "Buscar tweets anteriores", value: @consulta %>
+              <%= form.submit 'Buscar', class: "btn btn-outline-primary" %>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
       <!-- Widget del sidebar -->
-      <div class="fb-page" data-href="https://www.facebook.com/centrodecapacitacioninforcap" data-tabs="timeline" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-        <blockquote cite="https://www.facebook.com/centrodecapacitacioninforcap" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/centrodecapacitacioninforcap">Inforcap</a></blockquote>
-      </div>
+      <p><%= image_tag("qr", width: 450)%></p>
     </div>
   </div>
   <div class="col-lg-9">
+    <!--alert-->
+    <%= render "alert" %>
     <!-- Contenido principal -->
-    <p style="color: green"><%= notice %></p>
-    <%= form_with url: "/crear", method: :post do |form| %>
+    <%= form_with url: "/crear", method: :create do |form| %>
       <div class="tweet-form">
         <div class="card">
           <div class="card-body">
@@ -37,22 +38,7 @@
       </div>
     <% end %>
     <!-- tuiters -->
-    <% @tuits.each do |tuit| %>
-      <div class="card my-2">
-        <div class="card-body">
-          <div class="media">
-            <div class="media-body">
-              <h5 class="mt-0"><%= image_tag("logo", width: 60,class: "mr-3", alt: "Foto de Perfil")%>
-                <%= tuit.username %></h5>
-              <%= tuit.description %>
-              <div class="tweet-actions">
-                <button class="btn btn-sm btn-outline-primary">Editar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-    <p><%== pagy_nav(@pagy) if @pagy.pages > 1 %></p>
+    <%= render "tuit" %>
+    <p><%== pagy_bootstrap_nav(@pagy) %></p>
   </div>
 </div>
