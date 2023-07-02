@@ -1,22 +1,21 @@
     <% @tuits.each do |tuit| %>
-      <div class="card my-2">
-        <div class="card-body">
-          <div class="media">
-            <div class="media-body">
-              <h5 class="mt-0"><%= image_tag("logo", width: 40,class: "mr-3", alt: "Foto de Perfil")%>
-                <%= tuit.username %></h5>
-              <p><%= tuit.description %></p>
-              <div class="tweet-actions d-flex align-items-center">
-                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-sm btn-outline-primary rounded-pill me-2">
-                  Editar
-                </button>
-                <%= form_tag(tuit_path(tuit.id), method: :delete) do %>
-                  <%= button_tag 'Borrar', type: 'submit', class: "btn btn-sm btn-outline-danger rounded-pill me-2", data: { confirm: '¿Estás seguro de que deseas borrar este Tuit?' } %>
-                <% end %>
-                <span class="small fw-lighter"><%= tuit.updated_at.strftime("%d/%m/%Y %H:%M:%S") %></span>
-              </div>
-            </div>
+  <div class="card my-2">
+    <div class="card-body">
+      <div class="media">
+        <div class="media-body">
+          <h5 class="mt-0"><%= image_tag("logo", width: 40,class: "mr-3", alt: "Foto de Perfil")%>
+            <%= tuit.username %></h5>
+          <p><%= tuit.description %></p>
+          <div class="tweet-actions d-flex align-items-center">
+            <%= link_to 'Editar', edit_tuit_path(tuit.id), class: "btn btn-sm btn-outline-primary rounded-pill me-2" %>
+
+            <%= form_tag(tuit_path(tuit.id), method: :delete) do %>
+              <%= button_tag 'Borrar', type: 'submit', class: "btn btn-sm btn-outline-danger rounded-pill me-2", data: { confirm: '¿Estás seguro de que deseas borrar este Tuit?' } %>
+            <% end %>
+            <span class="small fw-lighter"><%= tuit.updated_at.strftime("%d/%m/%Y %H:%M:%S") %></span>
           </div>
         </div>
       </div>
-    <% end %>
+    </div>
+  </div>
+<% end %>

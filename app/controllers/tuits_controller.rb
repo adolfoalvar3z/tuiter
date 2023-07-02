@@ -11,8 +11,9 @@ class TuitsController < ApplicationController
 
   # GET /tuits/1/edit
   def edit
-    @tuit = Tuit.find(id: params[:id])
+    @tuit = Tuit.find(params[:id])
   end
+
 
   def destroy
     @tuit = Tuit.find(params[:id])
@@ -35,14 +36,19 @@ class TuitsController < ApplicationController
 
   #
   def update
-    respond_to do |format|
-      if @tuit.update(tuit_params)
-        format.html { redirect_to tuit_url(@tuit), notice: "Tuit was successfully updated." }
-        format.json { render :show, status: :ok, location: @tuit }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @tuit.errors, status: :unprocessable_entity }
-      end
+    @tuit = Tuit.find(params[:tuit][:id])
+
+    if @tuit.update(tuit_params)
+      redirect_to root_path, notice: "Tu Tuit ha sido actualizado."
+    else
+      redirect_to root_path, notice: "Tu actualización ha sido rechazada por Elon Musk."
     end
   end
+
+  private
+
+  def tuit_params
+    params.require(:tuit).permit(:description, :username)
+  end
+
 end

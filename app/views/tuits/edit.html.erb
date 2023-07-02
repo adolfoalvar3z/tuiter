@@ -1,10 +1,16 @@
-<h1>Editing tuit</h1>
-
-<%= render "form", tuit: @tuit %>
-
-<br>
-
-<div>
-  <%= link_to "Show this tuit", @tuit %> |
-  <%= link_to "Back to tuits", tuits_path %>
-</div>
+<%= form_with(model: @tuit, url: "/actualizar", method: :patch) do |form| %>
+  <div class="tweet-form">
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group">
+          <%= form.text_area :description, class: "form-control", placeholder: "Escribe tu tweet" %>
+        </div>
+        <div class="form-group py-2">
+          <%= form.text_field :username, class: "form-control", placeholder: "Ingresa tu Usuario" %>
+        </div>
+        <%= form.submit "Enviar", class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+  <%= form.hidden_field :id %>
+<% end %>
