@@ -8,7 +8,6 @@
           <p><%= tuit.description %></p>
           <div class="tweet-actions d-flex align-items-center">
             <%= link_to 'Editar', edit_tuit_path(tuit.id), class: "btn btn-sm btn-outline-primary rounded-pill me-2" %>
-
             <%= form_tag(tuit_path(tuit.id), method: :delete) do %>
               <%= button_tag 'Borrar', type: 'submit', class: "btn btn-sm btn-outline-danger rounded-pill me-2", data: { confirm: '¿Estás seguro de que deseas borrar este Tuit?' } %>
             <% end %>
